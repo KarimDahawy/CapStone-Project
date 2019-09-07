@@ -50,8 +50,8 @@ This technique is excuted based on the following:
  2. Use the Controller part in order to control throttle, steering and brake actions of the Autonomous Vehicle.
  3. Integrating the traffic light detection and classification, so this node subscribes to (/traffic_waypoint) topic.
  4. The (/final_waypoint) is updated based on the traffic light color:
-   * if RED, the velocity of the vehicle decelerates through the future waypoints.
-   * if GREEN, the velocity accelerates till the Maximum allowable speed through future waypoints.
+    * if RED, the velocity of the vehicle decelerates through the future waypoints.
+    * if GREEN, the velocity accelerates till the Maximum allowable speed through future waypoints.
       
 ### 2. Control:
 ---------------
