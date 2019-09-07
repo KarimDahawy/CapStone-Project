@@ -10,13 +10,13 @@ This project is done by: *Karim Dahawy* (karim.dahawy@valeo.com)
 
 [//]: # (Image References)
 
-[image1]: ./images/Capstone_Ros_Graph.png
-[image2]: ./images/
-[image3]: ./images/
-[image4]: ./images/
-[image5]: ./images/
-[image6]: ./images/
-[image7]: ./images/
+[image1]: ./imgs/Capstone_Ros_Graph.png
+[image2]: ./imgs/
+[image3]: ./imgs/
+[image4]: ./imgs/
+[image5]: ./imgs/
+[image6]: ./imgs/
+[image7]: ./imgs/
 
 ## Introduction:
 --------------------------------------------------------------
