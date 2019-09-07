@@ -13,10 +13,11 @@ This project is done by: *Karim Dahawy* (karim.dahawy@valeo.com)
 [image1]: ./imgs/Capstone_Ros_Graph.png
 [image2]: ./imgs/Waypoint_Updater_Node.png
 [image3]: ./imgs/DBW_Node.png
-[image4]: ./imgs/
-[image5]: ./imgs/
-[image6]: ./imgs/
-[image7]: ./imgs/
+[image4]: ./imgs/Traffic_Light_Detection_Node.png
+[image5]: ./imgs/move.png
+[image6]: ./imgs/Decelerate.png
+[image7]: ./imgs/stop.png
+[image8]: ./imgs/Accelerate.png
 
 ## Introduction:
 --------------------------------------------------------------
@@ -45,12 +46,12 @@ This is considered as a ROS Node that listens or subscribes to (/base_waypoint),
 
 This technique is excuted based on the following:
     
-    1. Generating the final waypoints to make the vehicle moves on straight lines.
-    2. Use the Controller part in order to control throttle, steering and brake actions of the Autonomous Vehicle.
-    3. Integrating the traffic light detection and classification, so this node subscribes to (/traffic_waypoint) topic.
-    4. The (/final_waypoint) is updated based on the traffic light color:
-      o if RED, the velocity of the vehicle decelerates through the future waypoints.
-      o if GREEN, the velocity accelerates till the Maximum allowable speed through future waypoints.
+ 1. Generating the final waypoints to make the vehicle moves on straight lines.
+ 2. Use the Controller part in order to control throttle, steering and brake actions of the Autonomous Vehicle.
+ 3. Integrating the traffic light detection and classification, so this node subscribes to (/traffic_waypoint) topic.
+ 4. The (/final_waypoint) is updated based on the traffic light color:
+   * if RED, the velocity of the vehicle decelerates through the future waypoints.
+   * if GREEN, the velocity accelerates till the Maximum allowable speed through future waypoints.
       
 ### 2. Control:
 ---------------
@@ -62,6 +63,38 @@ This is considered as a ROS Node that subscribes to (/twist_cmd), (/current_velo
 This Part is responsible to control the vehicles (throttle, steering, and brake) action commands.
 A PID controller is built with parameters (KP = 0.3, KI = 0.1, KD = 0). This part is called Drive by Wire (dbw) which can be defined as having electric control signal for the main control actions of the vehicle. The brake value is functional of the vehicle mass and the wheel radius calculating the vehcile Torque.
       
+
+### 3. Traffic Light Detection and Classification:
+-------------------------------------------------
+
+This is considered as a ROS Node that subscribes to (/base_waypoints), (/image_color), and (/current_pose) in order to publishes (/traffic_waypoints).
+
+![alt text][image4]
+
+The Purpose of this part is to build a deep learning model to detect the position of the traffic light in the image sent by Carla Simulator, then classify its color if it is RED or GREEN. 
+
+Using Bosch traffic light data (https://hci.iwr.uni-heidelberg.de/node/6132), I was able to train a simple classification network (less inference time) that takes the image and output the traffic light color. 
+
+A fine-tuned MobileNet (https://arxiv.org/pdf/1704.04861.pdf) is offered a good balance between efficiency and accuracy. I have depended on the information of stop line locations, so we decided not to use an object detection, and instead classify entire images as conraining very simply: RED, YELLOW, or GREEN traffic light.
+
+
+### Vehicle Performance on Unity Simulator
+
+The vehicle is oving Normally on the Simulator:
+
+![alt text][image5]
+
+The vehicle is able to decelerate if the traffic light is RED:
+
+![alt text][image6]
+
+The vehicle stops while the traffic light is RED: 
+
+![alt text][image7]
+
+The vehicle is able to accelerate if the traffic light is GREEN:
+
+![alt text][image8]
 
 ## Installation
 
