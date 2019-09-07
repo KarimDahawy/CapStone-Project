@@ -11,8 +11,8 @@ This project is done by: *Karim Dahawy* (karim.dahawy@valeo.com)
 [//]: # (Image References)
 
 [image1]: ./imgs/Capstone_Ros_Graph.png
-[image2]: ./imgs/
-[image3]: ./imgs/
+[image2]: ./imgs/Waypoint_Updater_Node.png
+[image3]: ./imgs/DBW_Node.png
 [image4]: ./imgs/
 [image5]: ./imgs/
 [image6]: ./imgs/
@@ -28,12 +28,40 @@ In order to design a fully autonomous Vehicle the following techniques have been
     
 The Waypoint Following technique would take information from the traffic light detection and classification with the current waypoints in order to update the target velocities for each waypoint based on this information.
 
-For Control part, we designed a drive-by-wire (dbw) node that could take the target linear and angular velocities and publish commands for the throttle, brake, and steering of the car. 
+For Control part, I have designed a drive-by-wire (dbw) node that could take the target linear and angular velocities and publish commands for the throttle, brake, and steering of the car. 
 
-Finally, Traffic Light Detection and classification, we designed a classification node that would take the current waypoints of the car and an image taken from the car and determine if the closest traffic light was red or green.
+For Traffic Light Detection and classification, I have designed a classification node that would take the current waypoints of the car and an image taken from the car and determine if the closest traffic light was red or green.
  
 ![alt text][image1]
 
+## Project Details:
+--------------------------------------------------------------
+### 1. Waypoint Following techniques:
+-------------------------------------
+
+This is considered as a ROS Node that listens or subscribes to (/base_waypoint), (/current_pose), and (/traffic_waypoint) topics in order to generate or publishes (/final_waypoint).
+
+![alt text][image2]
+
+This technique is excuted based on the following:
+    
+    1. Generating the final waypoints to make the vehicle moves on straight lines.
+    2. Use the Controller part in order to control throttle, steering and brake actions of the Autonomous Vehicle.
+    3. Integrating the traffic light detection and classification, so this node subscribes to (/traffic_waypoint) topic.
+    4. The (/final_waypoint) is updated based on the traffic light color:
+      o if RED, the velocity of the vehicle decelerates through the future waypoints.
+      o if GREEN, the velocity accelerates till the Maximum allowable speed through future waypoints.
+      
+### 2. Control:
+---------------
+
+This is considered as a ROS Node that subscribes to (/twist_cmd), (/current_velocity), and (/dbw_enabled) topics in order to publishes (/vehicle/steering_cmd), (/vehicle/throttle_cmd), and (/vehicle/brake_cmd).
+
+![alt text][image3]
+
+This Part is responsible to control the vehicles (throttle, steering, and brake) action commands.
+A PID controller is built with parameters (KP = 0.3, KI = 0.1, KD = 0). This part is called Drive by Wire (dbw) which can be defined as having electric control signal for the main control actions of the vehicle. The brake value is functional of the vehicle mass and the wheel radius calculating the vehcile Torque.
+      
 
 ## Installation
 
