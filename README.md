@@ -1,4 +1,41 @@
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+# Capstone Project
+
+## Description
+--------------------------------------------------------------
+This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree-Capstone Project: Programming a Real Self-Driving Car. 
+
+## Project Member:
+--------------------------------------------------------------
+This project is done by: *Karim Dahawy* (karim.dahawy@valeo.com)
+
+[//]: # (Image References)
+
+[image1]: ./images/Capstone_Ros_Graph.png
+[image2]: ./images/
+[image3]: ./images/
+[image4]: ./images/
+[image5]: ./images/
+[image6]: ./images/
+[image7]: ./images/
+
+## Introduction:
+--------------------------------------------------------------
+In order to design a fully autonomous Vehicle the following techniques have been used:
+    
+    1. Waypoint Following techniques
+    2. Control
+    3. Traffic Light Detection and Classification
+    
+The Waypoint Following technique would take information from the traffic light detection and classification with the current waypoints in order to update the target velocities for each waypoint based on this information.
+
+For Control part, we designed a drive-by-wire (dbw) node that could take the target linear and angular velocities and publish commands for the throttle, brake, and steering of the car. 
+
+Finally, Traffic Light Detection and classification, we designed a classification node that would take the current waypoints of the car and an image taken from the car and determine if the closest traffic light was red or green.
+ 
+![alt text][image1]
+
+
+## Installation
 
 Please use **one** of the two installation options, either native **or** docker installation.
 
